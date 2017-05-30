@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
 import { ConnectedRouter } from 'react-router-redux';
-import CounterPage from '../../app/containers/CounterPage';
+import MainPage from '../../app/containers/MainPage';
 import { configureStore } from '../../app/store/configureStore';
 
 function setup(initialState) {
@@ -12,7 +12,7 @@ function setup(initialState) {
   const app = mount(
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <CounterPage />
+        <MainPage />
       </ConnectedRouter>
     </Provider>
   );

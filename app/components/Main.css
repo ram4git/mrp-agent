@@ -1,0 +1,9 @@
+.ui.menu {
+  color: white !important;
+  text-transform: uppercase !important;
+}
+
+
+.ui.segment {
+    height: 700px !important;
+}
