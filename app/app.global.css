@@ -6,7 +6,7 @@ body {
   color: white;
   height: 100vh;
   font-family: Arial, Helvetica, Helvetica Neue, serif;
-  overflow-y: hidden;
+  overflow-y: auto;
 }
 
 h2 {
@@ -42,7 +42,7 @@ a:hover {
   border-bottom: solid #e67e22 !important;
 }
 
-.login form label {
+form label {
   text-align: left;
   color: #2980b9 !important;
 }
