@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, List, Modal, Input } from 'semantic-ui-react';
+import { Button, List, Modal, Input, Header } from 'semantic-ui-react';
 import { getMasters, addMasterValue } from '../int/Masters';
 
 
@@ -25,9 +25,12 @@ export default class Masters extends Component {
 
   render() {
     return (
-      <div className="box">
-        { this.renderAllMasters() }
-        { this.renderAddMasterModal() }
+      <div>
+        <Header as='h1'>MASTERS</Header>
+        <div className="box">
+          { this.renderAllMasters() }
+          { this.renderAddMasterModal() }
+        </div>
       </div>
     );
   }

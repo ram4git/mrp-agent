@@ -108,3 +108,7 @@ form label {
   text-transform: uppercase;
   color: #2980b9 !important;
 }
+
+h1.ui.header {
+    text-align: center;
+}
