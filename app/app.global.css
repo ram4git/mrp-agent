@@ -70,3 +70,41 @@ form label {
   margin: 20px 20px !important;
   padding: 20px 20px !important
 }
+
+.billing .steps {
+  margin: auto;
+}
+
+.master {
+  width: 250px;
+  border: solid red 2px;
+  margin: 20px 20px;
+  background-color: #ffffff;
+  text-color: #2980b9;
+
+}
+
+.master .header.head {
+  font-size: 20px;
+  color: #c0392b !important;
+  text-transform: uppercase;
+  padding-top: 10px !important;
+}
+
+.master .content {
+  margin: 20px 20px;
+}
+
+.billing .box {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.content .header{
+  color: #2980b9 !important;
+}
+
+.modal span.head {
+  text-transform: uppercase;
+  color: #2980b9 !important;
+}
