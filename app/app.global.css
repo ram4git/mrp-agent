@@ -77,11 +77,11 @@ form label {
 
 .master {
   width: 250px;
-  border: solid red 2px;
   margin: 20px 20px;
   background-color: #ffffff;
   text-color: #2980b9;
-
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 10px 10px !important;
 }
 
 .master .header.head {
