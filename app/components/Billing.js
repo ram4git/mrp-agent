@@ -145,8 +145,8 @@ class Billing extends Component {
     if (this.areAllFieldsEntered()) {
       return (
         <Form.Group className="actionButtons">
-          <Form.Button attached='bottom' content='SAVE & PRINT' width={12} onClick={this.addActivityRow.bind(this)} color="blue" />
-          <Form.Button attached='bottom' content='CLEAR' width={4} onClick={this.clearAllSettings.bind(this)} color="red" />
+          <Form.Button attached='middle' content='SAVE & PRINT' width={12} onClick={this.addActivityRow.bind(this)} color="blue" />
+          <Form.Button attached='middle' content='CLEAR' width={4} onClick={this.clearAllSettings.bind(this)} color="red" />
         </Form.Group>
       );
     }
