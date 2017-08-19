@@ -57,9 +57,23 @@ export default class Home extends Component {
   }
 
   renderMainPage() {
+    const mKey = this.state.mKey || 1;
     return (
-      <Main />
+      <Main onClear={this.forceRefresh.bind(this)} key={mKey} />
     );
+  }
+
+  forceRefresh() {
+    const mKey = this.getFourDigitRandomNumber();
+    this.setState({
+      mKey
+    });
+  }
+
+  getFourDigitRandomNumber() {
+    const min = Math.ceil(1000);
+    const max = Math.floor(9999);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
   authenticateUser() {

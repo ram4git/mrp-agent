@@ -47,6 +47,21 @@ form label {
   color: #2980b9 !important;
 }
 
+form .disabled > label {
+  text-align: left;
+  color: #2980b9 !important;
+  opacity: 1 !important;
+}
+
+.ui.form .disabled.field {
+  opacity: 1 !important;
+}
+
+.ui .form .disabled .input {
+  border: solid #16a085 2px;
+  font-size: 24px;
+}
+
 .login form {
   width: 350px !important;
   margin: auto;
@@ -111,4 +126,19 @@ form label {
 
 h1.ui.header {
     text-align: center;
+}
+
+.billing .summary {
+  text-align: center;
+  width: 400px;
+  margin: auto;
+}
+
+.billing .ui.form .field.error .ui.dropdown {
+  border-width: 4px !important;
+}
+
+.billing .negative.message {
+  margin: auto !important;
+  text-align: center !important;
 }

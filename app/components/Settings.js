@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, List } from 'semantic-ui-react';
 import Masters from './Masters';
+import Charges from './Charges';
 
 
 class Settings extends Component {
@@ -9,17 +10,10 @@ class Settings extends Component {
     return (
       <div className="billing">
         <Masters />
-        <div className="prices">
-          { this.renderPrices() }
-        </div>
+        <Charges />
       </div>
     );
   }
-
-  renderPrices() {
-
-  }
-
 }
 
 export default Settings;

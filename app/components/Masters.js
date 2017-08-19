@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Button, List, Modal, Input, Header } from 'semantic-ui-react';
 import { getMasters, addMasterValue } from '../int/Masters';
 
-
-
 export default class Masters extends Component {
 
   constructor(props) {
@@ -38,7 +36,7 @@ export default class Masters extends Component {
   renderAddMasterModal() {
     const { modalMasterKey } = this.state;
     return (
-      <Modal size="mini" open={this.state.modalOpen} onClose={this.modalClose.bind(this)}>
+      <Modal size="small" open={this.state.modalOpen} onClose={this.modalClose.bind(this)}>
         <Modal.Header>
           Add to <span className="head">{ modalMasterKey }</span>
         </Modal.Header>

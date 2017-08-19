@@ -33,3 +33,62 @@ export function addMasterValue(masterKey, masterValue) {
     });
   });
 }
+
+
+export const lorryToRusumMap = {
+  lorry_6_tyres: 100,
+  lorry_10_tyres: 200,
+  lorry_12_tyres: 250,
+  lorry_14_tyres: 300,
+  lorry_16_tyres: 350
+};
+
+export const lorry2JattuMap = {
+  lorry_6_tyres: 250,
+  lorry_10_tyres: 450,
+  lorry_12_tyres: 550,
+  lorry_14_tyres: 650
+};
+
+export const chargesMap = {
+  loading: {
+    rice: {
+      local: 35,
+      outside: 35
+    },
+    paddy: {
+      local: 35,
+      outside: 35
+    },
+    broken: {
+      local: 35,
+      outside: 35
+    },
+  },
+  unloading: {
+    rice: {
+      local: 35,
+      outside: 40,
+      extra: {
+        local: 300,
+        outside: 300
+      }
+    },
+    paddy: {
+      local: 35,
+      outside: 40,
+      extra: {
+        local: 0,
+        outside: 100
+      }
+    },
+    broken: {
+      local: 35,
+      outside: 40,
+      extra: {
+        local: 300,
+        outside: 300
+      }
+    }
+  }
+};
