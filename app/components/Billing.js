@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Step, Button, Statistic, Message } from 'semantic-ui-react'
-import { getMasters, chargesMap, lorryToRusumMap, lorry2JattuMap } from '../int/Masters';
+import { getMasters, chargesMap, lorryToRusumMap, lorry2JattuMap, addBill } from '../int/Masters';
 
 class Billing extends Component {
   constructor(props) {
@@ -69,13 +69,13 @@ class Billing extends Component {
     );
   }
 
-  renderFinancials() {
+  getCharges() {
     let totalTons = this.getTotalWeight(),
       chargePerTon = 0,
       extraCharges = 0,
-      jattu = 0,
-      totalCharge = 0,
-      balance = 0;
+      jattuAmount = 0,
+      totalAmount = 0,
+      balanceAmount = 0;
 
     const { action, product, region, lorryType } = this.state;
 
@@ -88,45 +88,64 @@ class Billing extends Component {
       }
 
       if (product !== 'paddy') {
-        jattu = lorry2JattuMap[lorryType];
+        jattuAmount = lorry2JattuMap[lorryType];
       } else {
-        jattu = totalTons * chargePerTon + extraCharges;
+        jattuAmount = totalTons * chargePerTon + extraCharges;
       }
 
-      totalCharge = totalTons * chargePerTon + extraCharges;
-      balance = totalCharge - jattu;
-
+      totalAmount = +totalTons * +chargePerTon + +extraCharges;
+      balanceAmount = totalAmount - jattuAmount;
     }
+
+    return {
+      totalAmount,
+      jattuAmount,
+      balanceAmount
+    }
+  }
+
+  renderFinancials() {
+    const { totalAmount, jattuAmount, balanceAmount } = this.getCharges();
 
     return (
       <Form.Group className="financials">
-        <Form.Input label='Total Amount' placeholder='₹0.00' width={5} disabled={true} value={totalCharge} />
-        <Form.Input label='Jattu Amount' placeholder='₹0.00' width={5} disabled={true} value={jattu} />
-        <Form.Input label='Remaining' placeholder='₹0.00' width={5} disabled={true} value={balance} />
+        <Form.Input label='Total Amount' placeholder='₹0.00' width={5} disabled={true} value={totalAmount} />
+        <Form.Input label='Jattu Amount' placeholder='₹0.00' width={5} disabled={true} value={jattuAmount} />
+        <Form.Input label='Remaining' placeholder='₹0.00' width={5} disabled={true} value={balanceAmount} />
       </Form.Group>
     );
   }
 
-  renderSummary() {
-    let totalTons = this.getTotalWeight(),
+  getSummaryData() {
+    let totalWeightInTons = this.getTotalWeight(),
       chargePerTon = 0,
-      extraCharges = 0;
+      otherCharges = 0;
 
     const { action, product, region, lorryType } = this.state;
 
     if (this.areAllFieldsEntered()) {
       chargePerTon = chargesMap[action][product][region];
       if (action === 'loading') {
-        extraCharges = lorryToRusumMap[lorryType];
+        otherCharges = lorryToRusumMap[lorryType];
       } else {
-        extraCharges = chargesMap[action][product].extra[region];
+        otherCharges = chargesMap[action][product].extra[region];
       }
     }
 
+    return {
+      totalWeightInTons,
+      chargePerTon,
+      otherCharges
+    };
+  }
+
+  renderSummary() {
+    const { totalWeightInTons, chargePerTon, otherCharges } = this.getSummaryData()
+
     const items = [
-      { label: 'Total Tons', value: totalTons.toString() },
+      { label: 'Total Tons', value: totalWeightInTons.toString() },
       { label: 'Charge per Ton', value: chargePerTon.toString() },
-      { label: action === 'loading' ? 'rusum' : 'Other Charges', value: extraCharges.toString() }
+      { label: this.state.action === 'loading' ? 'rusum' : 'Other Charges', value: otherCharges.toString() }
     ];
     return (
       <div className="summary">
@@ -145,7 +164,7 @@ class Billing extends Component {
     if (this.areAllFieldsEntered()) {
       return (
         <Form.Group className="actionButtons">
-          <Form.Button attached='middle' content='SAVE & PRINT' width={12} onClick={this.addActivityRow.bind(this)} color="blue" />
+          <Form.Button attached='middle' content='SAVE & PRINT' width={12} onClick={this.addBillToDB.bind(this)} color="blue" />
           <Form.Button attached='middle' content='CLEAR' width={4} onClick={this.clearAllSettings.bind(this)} color="red" />
         </Form.Group>
       );
@@ -155,6 +174,40 @@ class Billing extends Component {
         Please fill all inputs in red
       </Message>
     );
+  }
+
+  addBillToDB() {
+    const { action, product, region, lorryType, activityRows } = this.state;
+    const activityRowsJson = JSON.stringify(activityRows);
+    const { totalAmount, jattuAmount, balanceAmount } = this.getCharges();
+    const { totalWeightInTons, chargePerTon, otherCharges } = this.getSummaryData()
+    const lorryNo = activityRows[0].lorryNo || '';
+    const payLoad = {
+      action,
+      product,
+      region,
+      lorryType,
+      totalWeightInTons,
+      activityRows: activityRowsJson,
+      totalAmount,
+      jattuAmount,
+      balanceAmount,
+      chargePerTon,
+      otherCharges,
+      lorryNo
+    };
+
+    console.log('PAYLOAD', JSON.stringify(payLoad, null, 2));
+    addBill(payLoad)
+      .then((resp) => {
+        if (resp.success) {
+          alert("Successfully saved!")
+        }
+        this.clearAllSettings();
+      })
+      .catch((err) => {
+        alert("Bill save failed!")
+      });
   }
 
   renderActivities() {

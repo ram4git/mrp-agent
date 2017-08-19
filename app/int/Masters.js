@@ -2,7 +2,57 @@ const path = require('path')
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database(path.join('/tmp', 'masters.db'));
 
-export function getMasters(masterType) {
+
+export function addBill(bill) {
+  let valuesArray = [];
+  const date = new Date().getTime();
+  valuesArray.push(date);// #1 date
+  valuesArray.push(bill.action);// #2 action
+  valuesArray.push(bill.product);// #3 product
+  valuesArray.push(bill.region);// #4 region
+  valuesArray.push(bill.lorryType);// #5 lorryType
+  valuesArray.push(bill.totalWeightInTons);// #6 totalWeightInTons
+  valuesArray.push(bill.activityRows);// #7 activityRows
+  valuesArray.push(bill.totalAmount);// #8  totalAmout
+  valuesArray.push(bill.jattuAmount); //#9 jattuAmount
+  valuesArray.push(bill.balanceAmount); //#10 balanceAmount
+  valuesArray.push(bill.chargePerTon); //#11 chargePerTon
+  valuesArray.push(bill.otherCharges); //#12 otherCharges
+  valuesArray.push(bill.lorryNo); //#13 lorryNo
+
+  return new Promise((resolve, reject) => {
+    const stmt = 'INSERT INTO BILLS (date, action, product, region,' +
+    ' lorryType, totalWeightInTons, activityRows, totalAmount, jattuAmount,' +
+    ' balanceAmount, chargePerTon, otherCharges, lorryNo) ' +
+    'VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)';
+    console.log('STMT=' + stmt);
+    db.run(stmt, valuesArray, (err) => {
+      if (!err) {
+        resolve({ success: true });
+      } else {
+        reject(err);
+      }
+    });
+  });
+}
+
+export function getBills() {
+
+  return new Promise((resolve, reject) => {
+    db.serialize(() => {
+      db.all('SELECT * FROM BILLS', (err, rows) => {
+        if (!err) {
+          resolve(rows);
+        } else {
+          reject(err);
+        }
+      });
+    });
+  });
+}
+
+
+export function getMasters() {
 
   return new Promise((resolve, reject) => {
     db.serialize(() => {

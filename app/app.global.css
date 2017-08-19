@@ -142,3 +142,9 @@ h1.ui.header {
   margin: auto !important;
   text-align: center !important;
 }
+
+.reports td.price {
+  text-align: right !important;
+  font-size: 20px;
+  color: #2c3e50;
+}
