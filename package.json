@@ -1,5 +1,5 @@
 {
-  "name": "electron-react-boilerplate",
+  "name": "lalitha-waybridge-billing",
   "productName": "ElectronReact",
   "version": "0.12.0",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
@@ -189,10 +189,16 @@
   },
   "dependencies": {
     "ajv": "^5.2.2",
+    "dot-prop": "^4.2.0",
     "electron-debug": "^1.1.0",
+    "electron-json-storage": "^3.0.7",
+    "electron-json-storage-sync": "^1.1.0",
+    "env-paths": "^1.0.0",
     "fcopy-pre-bundled": "^0.3.4",
     "font-awesome": "^4.7.0",
     "history": "^4.6.1",
+    "make-dir": "^1.0.0",
+    "pkg-up": "^2.0.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-hot-loader": "3.0.0-beta.6",

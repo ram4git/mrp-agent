@@ -1,12 +1,16 @@
 // @flow
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { Button, Form, Message } from 'semantic-ui-react'
+import Storage from 'electron-json-storage-sync';
+import { Button, Form, Message } from 'semantic-ui-react';
+
 import { auth } from '../int/Auth';
 import Main from './Main';
 
 
 import styles from './Home.css';
+
+//TODO https://stackoverflow.com/questions/40318054/exporting-sqlite3-db-file-from-inside-electron-app-is-this-possible
 
 
 const ROOT_ROUTE = '/Main';
@@ -21,6 +25,18 @@ export default class Home extends Component {
       authMsg: '',
       authenticated: false
     };
+  }
+
+  componentDidMount() {
+    const { status, data, error } = Storage.get('session');
+    if(status) {
+      const { user, status } = data;
+      this.setState({
+        user,
+        authenticated: status === 'LOGGED-IN'
+      });
+    }
+
   }
 
   render() {

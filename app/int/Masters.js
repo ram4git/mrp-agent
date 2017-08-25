@@ -86,7 +86,7 @@ export function addMasterValue(masterKey, masterValue) {
 
 
 export const lorryToRusumMap = {
-  lorry_6_tyres: 100,
+  lorry_6_tyres: 150,
   lorry_10_tyres: 200,
   lorry_12_tyres: 250,
   lorry_14_tyres: 300,
@@ -97,7 +97,8 @@ export const lorry2JattuMap = {
   lorry_6_tyres: 250,
   lorry_10_tyres: 450,
   lorry_12_tyres: 550,
-  lorry_14_tyres: 650
+  lorry_14_tyres: 650,
+  lorry_16_tyres: 750
 };
 
 export const chargesMap = {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Step, Button, Statistic, Message } from 'semantic-ui-react'
+import { BrowserWindow } from 'electron';
 import { getMasters, chargesMap, lorryToRusumMap, lorry2JattuMap, addBill } from '../int/Masters';
 
 class Billing extends Component {
@@ -164,7 +165,7 @@ class Billing extends Component {
     if (this.areAllFieldsEntered()) {
       return (
         <Form.Group className="actionButtons">
-          <Form.Button attached='middle' content='SAVE & PRINT' width={12} onClick={this.addBillToDB.bind(this)} color="blue" />
+          <Form.Button attached='middle' content='SAVE & PRINT' width={12} onClick={this.saveBillToDB.bind(this)} color="blue" />
           <Form.Button attached='middle' content='CLEAR' width={4} onClick={this.clearAllSettings.bind(this)} color="red" />
         </Form.Group>
       );
@@ -176,7 +177,7 @@ class Billing extends Component {
     );
   }
 
-  addBillToDB() {
+  saveBillToDB() {
     const { action, product, region, lorryType, activityRows } = this.state;
     const activityRowsJson = JSON.stringify(activityRows);
     const { totalAmount, jattuAmount, balanceAmount } = this.getCharges();

@@ -2,7 +2,7 @@
   "name": "mrp-waybridge-billing",
   "productName": "mrp-waybridge-billing",
   "version": "1.0.0",
-  "description": "Desktop Application to pring waybridge bills",
+  "description": "Desktop Application to print waybridge bills",
   "main": "./main.prod.js",
   "author": {
     "name": "C. T. Lin",
