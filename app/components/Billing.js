@@ -219,7 +219,7 @@ class Billing extends Component {
             win.show();
             win.focus();
             win.openDevTools();
-            win.webContents.print({silent:true, pageSize:'A4',  printBackground:true});
+            win.webContents.print({ pageSize:'A4'});
           });
 
           win.on('closed', () => {
