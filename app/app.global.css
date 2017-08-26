@@ -148,3 +148,13 @@ h1.ui.header {
   font-size: 20px;
   color: #2c3e50;
 }
+
+.billing .form .fields.actionButtons {
+    bottom: 0 !important;
+    position: fixed !important;
+    width: 99%;
+}
+
+.billing form.ui.form {
+    min-height: 600px;
+}

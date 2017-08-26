@@ -1,7 +1,8 @@
 const path = require('path')
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database(path.join('/tmp', 'masters.db'));
-
+const { app } = require('electron').remote;
+const dbPath = path.resolve(app.getPath('userData'), 'masters.db');
+const db = new sqlite3.Database(dbPath);
 
 export function addBill(bill) {
   let valuesArray = [];
