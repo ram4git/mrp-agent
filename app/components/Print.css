@@ -1,0 +1,71 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #FAFAFA;
+    font: 12pt "Tahoma";
+}
+
+html { background-color: #F8F8F8; }
+.printer { background-color: #F8F8F8; }
+
+
+* {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+.page {
+    width: 21cm;
+    min-height: 29.7cm;
+    padding: 2cm;
+    margin: 1cm auto;
+    border: 1px #D3D3D3 solid;
+    border-radius: 5px;
+    background: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    color: black;
+}
+.subpage {
+    padding: .5cm;
+    border: 2px red solid;
+    height: 256mm;
+    outline: 1cm #FFEAEA solid;
+}
+
+@page {
+    size: A4;
+    margin-bottom: 25mm ;
+    margin-top: 25mm ;
+
+}
+@media print {
+    html, body {
+      width: 210mm;
+      height: 297mm;
+    }
+    .page {
+        border: initial;
+        border-radius: initial;
+        width: initial;
+        min-height: initial;
+        box-shadow: initial;
+        background: initial;
+        page-break-after: always;
+        position: relative;
+        margin: -2cm auto;
+    }
+}
+
+.printPageHeader {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.printer footer {
+  font-size: 10px;
+  color: #dadada;
+  right: 0;
+  bottom: 20px;
+  left: 0;
+  position: absolute;
+}

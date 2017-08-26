@@ -26,7 +26,6 @@ export function addBill(bill) {
     ' lorryType, totalWeightInTons, activityRows, totalAmount, jattuAmount,' +
     ' balanceAmount, chargePerTon, otherCharges, lorryNo) ' +
     'VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)';
-    console.log('STMT=' + stmt);
     db.run(stmt, valuesArray, (err) => {
       if (!err) {
         resolve({ success: true });
@@ -42,6 +41,20 @@ export function getBills() {
   return new Promise((resolve, reject) => {
     db.serialize(() => {
       db.all('SELECT * FROM BILLS', (err, rows) => {
+        if (!err) {
+          resolve(rows);
+        } else {
+          reject(err);
+        }
+      });
+    });
+  });
+}
+
+export function getBill(billNo) {
+  return new Promise((resolve, reject) => {
+    db.serialize(() => {
+      db.all('SELECT * FROM BILLS where sno = ?', billNo, (err, rows) => {
         if (!err) {
           resolve(rows);
         } else {

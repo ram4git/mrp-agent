@@ -158,3 +158,124 @@ h1.ui.header {
 .billing form.ui.form {
     min-height: 600px;
 }
+
+.page {
+    width: 21cm;
+    min-height: 29.7cm;
+    border: 1px #D3D3D3 solid;
+    border-radius: 5px;
+    background: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    text-color: black !important;
+    color: black !important;
+}
+.subpage {
+    padding: .5cm;
+    border: 2px red solid;
+    height: 256mm;
+    outline: 1cm #FFEAEA solid;
+    text-color: black !important;
+    color: black !important;
+}
+
+@page {
+    size: A4;
+    margin-bottom: 25mm ;
+    margin-top: 25mm ;
+
+}
+@media print {
+    html, body {
+      width: 210mm;
+      height: 297mm;
+    }
+    .page {
+        border: initial;
+        border-radius: initial;
+        width: initial;
+        min-height: initial;
+        box-shadow: initial;
+        background: initial;
+        page-break-after: always;
+        position: relative;
+        margin: -2cm auto;
+        text-color: black !important;
+        color: black !important;
+    }
+}
+
+.printPageHeader {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.printer footer {
+  font-size: 10px;
+  color: #dadada;
+  right: 0;
+  bottom: 20px;
+  left: 0;
+  position: absolute;
+}
+
+.page .copy {
+  height: 120mm;
+  color: black !important;
+  border: solid red 2px;
+  padding: 10px 10px;
+  margin: 60px 10px;
+  margin-top: 0px;
+  text-align: center;
+  position: relative;
+}
+
+.page .copy h5 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+
+.orderHeader td.value {
+    text-align: left;
+    font-weight: bolder;
+    padding-left: 10px;
+    font-size: 16px;
+}
+
+.orderHeader td.key {
+    text-align: right;
+}
+
+.orderHeader table {
+    width: 100%;
+}
+
+
+.ui.statistics {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    margin: 1em -1.5em -2em;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px !important;
+}
+
+.ui.statistics>.statistic {
+  margin: auto !important;
+}
+
+.ui.statistic {
+  margin: auto !important;
+}
+
+
+.copy footer {
+    position: absolute;
+    bottom: 0px;
+    text-align: center;
+    color: #bdc3c7;
+}

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Form, Step, Button, Statistic, Message } from 'semantic-ui-react'
-import { BrowserWindow } from 'electron';
 import { getMasters, chargesMap, lorryToRusumMap, lorry2JattuMap, addBill } from '../int/Masters';
+import electron, { remote } from 'electron';
+
+const app = remote.app;
+const appDir = app.getAppPath();
 
 class Billing extends Component {
   constructor(props) {
@@ -198,11 +201,30 @@ class Billing extends Component {
       lorryNo
     };
 
-    console.log('PAYLOAD', JSON.stringify(payLoad, null, 2));
     addBill(payLoad)
       .then((resp) => {
         if (resp.success) {
-          alert("Successfully saved!")
+          let win = new remote.BrowserWindow(
+            {
+              show: false,
+              width: 1200,
+              height: 800,
+              frame: true
+            });
+          win.loadURL(`file://${appDir}/app.html?print=1`);
+          win.webContents.on('did-finish-load', () => {
+            if (!win) {
+              throw new Error('"Print Window" is not defined');
+            }
+            win.show();
+            win.focus();
+            win.openDevTools();
+            win.webContents.print({silent:true, pageSize:'A4',  printBackground:true});
+          });
+
+          win.on('closed', () => {
+            win = null;
+          });
         }
         this.clearAllSettings();
       })

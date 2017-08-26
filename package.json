@@ -1,6 +1,6 @@
 {
   "name": "lalitha-waybridge-billing",
-  "productName": "ElectronReact",
+  "productName": "LalithaWaybridge",
   "version": "0.12.0",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "scripts": {
@@ -200,6 +200,7 @@
     "history": "^4.6.1",
     "make-dir": "^1.0.0",
     "pkg-up": "^2.0.0",
+    "query-string": "^5.0.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-hot-loader": "3.0.0-beta.6",
