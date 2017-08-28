@@ -40,7 +40,7 @@ export function getBills() {
 
   return new Promise((resolve, reject) => {
     db.serialize(() => {
-      db.all('SELECT * FROM BILLS', (err, rows) => {
+      db.all('SELECT * FROM BILLS ORDER BY sno DESC LIMIT 100', (err, rows) => {
         if (!err) {
           resolve(rows);
         } else {
@@ -50,6 +50,22 @@ export function getBills() {
     });
   });
 }
+
+export function getBillsForShift(start, end) {
+
+  return new Promise((resolve, reject) => {
+    db.serialize(() => {
+      db.all('SELECT * FROM BILLS WHERE date >= ? AND date < ? ORDER BY sno DESC LIMIT 100', [start, end], (err, rows) => {
+        if (!err) {
+          resolve(rows);
+        } else {
+          reject(err);
+        }
+      });
+    });
+  });
+}
+
 
 export function getBill(billNo) {
   return new Promise((resolve, reject) => {

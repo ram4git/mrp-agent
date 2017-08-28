@@ -115,8 +115,8 @@ export default class PrintPage extends Component {
           </tr>
         </table>
         <div className="summary">
-          <Statistic.Group items={statItems} color='black' />
-          <Statistic.Group items={amountItems} color='black' />
+          <Statistic.Group items={statItems} color='black' widths='three' />
+          <Statistic.Group items={amountItems} color='black' widths='three' />
         </div>
       </div>
     );

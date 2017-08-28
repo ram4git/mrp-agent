@@ -27,8 +27,7 @@
     "package": "npm run build && build --publish never",
     "package-win": "npm run build && build --win --ia32",
     "package-linux": "npm run build && build --linux",
-    "package-all": "npm run build && build -mwl",
-    "ram": "electron-rebuild -f -w sqlite3"
+    "package-all": "npm run build && build -mwl"
   },
   "browserslist": "electron 1.6",
   "build": {
@@ -139,7 +138,7 @@
     "cross-spawn": "^5.1.0",
     "css-loader": "^0.28.3",
     "devtron": "^1.4.0",
-    "electron": "^1.6.10",
+    "electron": "^1.7.5",
     "electron-builder": "^18.8.1",
     "electron-devtools-installer": "^2.2.0",
     "electron-rebuild": "^1.6.0",
@@ -202,6 +201,7 @@
     "pkg-up": "^2.0.0",
     "query-string": "^5.0.0",
     "react": "^15.5.4",
+    "react-datepicker": "^0.53.0",
     "react-dom": "^15.5.4",
     "react-hot-loader": "3.0.0-beta.6",
     "react-redux": "^5.0.5",
@@ -212,8 +212,7 @@
     "redux-thunk": "^2.2.0",
     "semantic-ui-css": "^2.2.10",
     "semantic-ui-react": "^0.68.4",
-    "source-map-support": "^0.4.15",
-    "sqlite3": "^3.1.9"
+    "source-map-support": "^0.4.15"
   },
   "devEngines": {
     "node": ">=6.x",

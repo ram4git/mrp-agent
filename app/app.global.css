@@ -1,5 +1,6 @@
 @import "~font-awesome/css/font-awesome.css";
 @import "~semantic-ui-css/semantic.min.css";
+@import "~react-datepicker/dist/react-datepicker.css";
 
 body {
   position: relative;
@@ -280,4 +281,22 @@ h1.ui.header {
     bottom: 0px;
     text-align: center;
     color: #bdc3c7;
+}
+
+hiftPicker.dropdown {
+    float: left;
+    height: 40px;
+}
+
+
+.reports .datePicker {
+    float: left;
+    width: 140px;
+    height: 40px;
+    font-size: 24px;
+    color: #2980b9;
+}
+
+a.ui.massive.label {
+    float: right;
 }
