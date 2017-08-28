@@ -218,7 +218,6 @@ class Billing extends Component {
             }
             win.show();
             win.focus();
-            win.openDevTools();
             win.webContents.print({ pageSize:'A4'});
           });
 
