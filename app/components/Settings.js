@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, List } from 'semantic-ui-react';
 import Masters from './Masters';
-import Charges from './Charges';
+import UserManagement from './Users';
 
 
 class Settings extends Component {
@@ -10,7 +10,7 @@ class Settings extends Component {
     return (
       <div className="billing">
         <Masters />
-        <Charges />
+        <UserManagement />
       </div>
     );
   }

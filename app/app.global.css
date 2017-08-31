@@ -300,3 +300,7 @@ hiftPicker.dropdown {
 a.ui.massive.label {
     float: right;
 }
+
+.ui.fluid.attached.button {
+    text-align: center;
+}

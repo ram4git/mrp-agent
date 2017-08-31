@@ -94,14 +94,56 @@ export default class Home extends Component {
 
   authenticateUser() {
     const { user, pass } = this.state;
-    const authResponse = auth(user, pass);
-    if(authResponse.authenticated) {
-      this.setState({
-        authenticated: true
-      });
+    const { status, data, error } = Storage.get('session');
+    if (status) {
+      if(data.user === user && data.status === 'LOGGED-IN') {
+        console.log(`USER ${user} is already logged in`);
+        this.setState({
+          authenticated: true
+        });
+
+      }
     } else {
-      this.setState({
-        authMsg: authResponse.msg
+      auth(user, pass)
+      .then((row) => {
+        console.log('ROW from db ', JSON.stringify(row, null, 2));
+        if (!row.length) {
+          this.setState({
+            authMsg: 'USERNAME/PASSWORD does not exist'
+          });
+        } else {
+          const { name: dbName, pass: dbPass } = row[0];
+          console.log('ROW from db ', JSON.stringify(row[0], null, 2));
+
+          if (dbName === user) {
+            if (dbPass === pass) {
+              const result = Storage.set('session', {
+                user,
+                status: 'LOGGED-IN'
+              });
+              this.setState({
+                authenticated: true
+              });
+            } else {
+              Storage.clear();
+              this.setState({
+                authMsg: 'Incorrect Password ❌'
+              });
+            }
+          } else {
+            response.msg = 'USERNAME doesn\'t exist ❗️';
+            Storage.clear();
+            this.setState({
+              authMsg: 'USERNAME doesn\'t exist ❗️'
+            });
+          }
+        }
+      })
+      .catch((err) => {
+        Storage.clear();
+        this.setState({
+          authMsg: 'Unable to authenticate User❗️'
+        });
       });
     }
   }

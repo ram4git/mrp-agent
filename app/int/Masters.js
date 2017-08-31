@@ -2,12 +2,13 @@ const path = require('path')
 const sqlite3 = require('sqlite3').verbose();
 const { app } = require('electron').remote;
 const dbPath = path.resolve(app.getPath('userData'), 'masters.db');
+//C:\Users\IEUser\AppData\Roaming\mrp-waybridge-billing
 const db = new sqlite3.Database(dbPath);
 
 export function addBill(bill) {
   let valuesArray = [];
-  const date = new Date().getTime();
-  valuesArray.push(date);// #1 date
+  valuesArray.push(bill.sno);// #2 sno
+  valuesArray.push(bill.date);// #1 date
   valuesArray.push(bill.action);// #2 action
   valuesArray.push(bill.product);// #3 product
   valuesArray.push(bill.region);// #4 region
@@ -22,13 +23,13 @@ export function addBill(bill) {
   valuesArray.push(bill.lorryNo); //#13 lorryNo
 
   return new Promise((resolve, reject) => {
-    const stmt = 'INSERT INTO BILLS (date, action, product, region,' +
+    const stmt = 'INSERT INTO BILLS (sno, date, action, product, region,' +
     ' lorryType, totalWeightInTons, activityRows, totalAmount, jattuAmount,' +
     ' balanceAmount, chargePerTon, otherCharges, lorryNo) ' +
-    'VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)';
+    'VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
     db.run(stmt, valuesArray, (err) => {
       if (!err) {
-        resolve({ success: true });
+        resolve({ success: true, id: bill.sno });
       } else {
         reject(err);
       }
@@ -104,6 +105,36 @@ export function addMasterValue(masterKey, masterValue) {
       const stmt = 'INSERT INTO MASTERS (name, key, value) VALUES (?,?,?)';
       console.log('STMT=' + stmt);
       db.run(stmt, [masterKey, goodMasterKey, masterValue], (err) => {
+        if (!err) {
+          resolve({ success: true });
+        } else {
+          reject(err);
+        }
+      });
+    });
+  });
+}
+
+
+export function getUser(name) {
+  return new Promise((resolve, reject) => {
+    db.serialize(() => {
+      db.all('SELECT * FROM USERS where name = ?', name, (err, rows) => {
+        if (!err) {
+          resolve(rows);
+        } else {
+          reject(err);
+        }
+      });
+    });
+  });
+}
+
+export function addUser(name, pass) {
+  return new Promise((resolve, reject) => {
+    db.serialize(() => {
+      const stmt = 'INSERT INTO USERS (name, pass) VALUES (?,?)';
+      db.run(stmt, [name, pass], (err) => {
         if (!err) {
           resolve({ success: true });
         } else {

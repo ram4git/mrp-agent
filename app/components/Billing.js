@@ -94,7 +94,7 @@ class Billing extends Component {
       if (product !== 'paddy') {
         jattuAmount = lorry2JattuMap[lorryType];
       } else {
-        jattuAmount = totalTons * chargePerTon + extraCharges;
+        jattuAmount = 0;
       }
 
       totalAmount = +totalTons * +chargePerTon + +extraCharges;
@@ -168,8 +168,8 @@ class Billing extends Component {
     if (this.areAllFieldsEntered()) {
       return (
         <Form.Group className="actionButtons">
-          <Form.Button attached='middle' content='SAVE & PRINT' width={12} onClick={this.saveBillToDB.bind(this)} color="blue" />
-          <Form.Button attached='middle' content='CLEAR' width={4} onClick={this.clearAllSettings.bind(this)} color="red" />
+          <Form.Button fluid attached='left' content='SAVE & PRINT' width={12} onClick={this.saveBillToDB.bind(this)} color="blue" />
+          <Form.Button fluid attached='right' content='CLEAR' width={4} onClick={this.clearAllSettings.bind(this)} color="red" />
         </Form.Group>
       );
     }
@@ -186,7 +186,12 @@ class Billing extends Component {
     const { totalAmount, jattuAmount, balanceAmount } = this.getCharges();
     const { totalWeightInTons, chargePerTon, otherCharges } = this.getSummaryData()
     const lorryNo = activityRows[0].lorryNo || '';
+    const date = new Date();
+    const sno = `${date.toISOString().slice(0, 10).split('-').join('')}${date.toISOString().slice(11, 23).split(/:|\./).join('')}`;
+    const time = date.getTime();
     const payLoad = {
+      sno,
+      date: time,
       action,
       product,
       region,
@@ -203,22 +208,23 @@ class Billing extends Component {
 
     addBill(payLoad)
       .then((resp) => {
+        console.log("LAST ID:" + resp.id);
         if (resp.success) {
           let win = new remote.BrowserWindow(
             {
-              show: false,
               width: 1200,
               height: 800,
               frame: true
             });
-          win.loadURL(`file://${appDir}/app.html?print=1`);
+          win.loadURL(`file://${appDir}/app.html?print=${resp.id}`);
           win.webContents.on('did-finish-load', () => {
+            //win.openDevTools();
             if (!win) {
               throw new Error('"Print Window" is not defined');
             }
             win.show();
             win.focus();
-            win.webContents.print({ pageSize:'A4'});
+            // win.webContents.print({ pageSize: 'A4', silent: true });
           });
 
           win.on('closed', () => {

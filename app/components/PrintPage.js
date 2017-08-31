@@ -35,12 +35,12 @@ export default class PrintPage extends Component {
       <div className="page">
         <div className="original copy">
           { this.renderPageHeader('office') }
-          { this.renderBillDetails() }
+          { this.renderBillDetails('office') }
           { this.renderFooter() }
         </div>
         <div className="security copy">
           { this.renderPageHeader('security') }
-          { this.renderBillDetails() }
+          { this.renderBillDetails('security') }
           { this.renderFooter() }
         </div>
       </div>
@@ -51,7 +51,7 @@ export default class PrintPage extends Component {
     const { status, data } = Storage.get('session');
     if (status) {
       return (
-        <footer>printed by <strong>{ data.username }</strong></footer>
+        <footer>printed by <strong>{ data.user }</strong></footer>
       );
     }
   }
@@ -70,19 +70,27 @@ export default class PrintPage extends Component {
     );
   }
 
-  renderBillDetails() {
+  renderBillDetails(billType) {
     let statItems = [], amountItems = [];
     if (this.state.data) {
-      statItems = [
-        { label: 'Total Tons', value: this.state.data.totalWeightInTons.toString() },
-        { label: 'Charge per Ton', value: this.state.data.chargePerTon.toString() },
-        { label: this.state.action === 'loading' ? 'rusum' : 'Other Charges', value: this.state.data.otherCharges.toString() }
-      ];
-      amountItems = [
-        { label: 'Total Amount', value: this.state.data.totalAmount.toString() },
-        { label: 'Jattu Amount', value: this.state.data.jattuAmount.toString() },
-        { label: 'Remaining', value: this.state.data.balanceAmount.toString() }
-      ];
+      if (billType === 'security') {
+        statItems = [
+          { label: 'Total Tons', value: this.state.data.totalWeightInTons.toString() },
+          { label: 'Charge per Ton', value: this.state.data.chargePerTon.toString() },
+          { label: 'Total Charge', value: this.state.data.balanceAmount.toString() }
+        ];
+      } else {
+        statItems = [
+          { label: 'Total Tons', value: this.state.data.totalWeightInTons.toString() },
+          { label: 'Charge per Ton', value: this.state.data.chargePerTon.toString() },
+          { label: this.state.action === 'loading' ? 'rusum' : 'Other Charges', value: this.state.data.otherCharges.toString() }
+        ];
+        amountItems = [
+          { label: 'Total Amount', value: this.state.data.totalAmount.toString() },
+          { label: 'Jattu Amount', value: this.state.data.jattuAmount.toString() },
+          { label: 'Remaining', value: this.state.data.balanceAmount.toString() }
+        ];
+      }
     }
 
     if (!this.state.data) {
@@ -115,7 +123,7 @@ export default class PrintPage extends Component {
           </tr>
         </table>
         <div className="summary">
-          <Statistic.Group items={statItems} color='black' widths='three' />
+          <Statistic.Group items={statItems} color='black' widths='three'/>
           <Statistic.Group items={amountItems} color='black' widths='three' />
         </div>
       </div>
