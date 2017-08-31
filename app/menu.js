@@ -131,6 +131,12 @@ export default class MenuBuilder {
         click: () => {
           this.mainWindow.close();
         }
+      },{
+        label: 'Print',
+        accelerator: 'Ctrl+P',
+        click: () => {
+          BrowserWindow.getFocusedWindow().webContents.print();
+        }
       },
       {
         label: 'Toggle &Developer Tools',
