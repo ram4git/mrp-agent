@@ -212,9 +212,11 @@ class Billing extends Component {
         if (resp.success) {
           let win = new remote.BrowserWindow(
             {
-              width: 1200,
-              height: 800,
-              frame: true
+              width: '29.7cm',
+              height: '42cm',
+              frame: true,
+              x: 20,
+              y: 20
             });
           win.loadURL(`file://${appDir}/app.html?print=${resp.id}`);
           win.webContents.on('did-finish-load', () => {
@@ -246,14 +248,14 @@ class Billing extends Component {
     for (let i = 0; i < this.state.activityRows.length; i++) {
       const { wsno, lorryNo, jattu, weightInTons } = this.state.activityRows[i];
       activities.push(
-        <Form.Group key={i}>
+        <Form.Group key={i} as="div">
           <Form.Input label='W.S.NO' placeholder='#####' width={3} onChange={ this.updateActivityRows.bind(this, i, 'wsno')} value={wsno} />
           <Form.Input label='Lorry NO' placeholder='AP12CD1234' width={4} onChange={ this.updateActivityRows.bind(this, i, 'lorryNo')} value={lorryNo} />
           <Form.Select label='Jattu' options={ this.getMasters('jattus') } placeholder='Jattu Name' width={4} onChange={this.updateActivityRows.bind(this, i, 'jattu')} value={jattu} />
           <Form.Input label='Weight in Tons' placeholder='00.00' width={3} onChange={ this.updateActivityRows.bind(this, i, 'weightInTons')} value={weightInTons} />
           { (i + 1) === this.state.activityRows.length ?
-            <Form.Button label="New Row" content='+' width={2} onClick={this.addActivityRow.bind(this)} /> :
-            <Form.Button label="Delete Row" content='-' width={2} onClick={this.removeActivityRow.bind(this, i)} /> }
+          <Button className="hide" type='submit' label="+ New Row" width={2} onClick={this.addActivityRow.bind(this)} /> :
+          <Button className="hide" type='submit' label="- Delete Row" width={2} onClick={this.removeActivityRow.bind(this, i)} /> }
         </Form.Group>
       );
     }

@@ -3,18 +3,9 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import Storage from 'electron-json-storage-sync';
 import { Button, Form, Message } from 'semantic-ui-react';
-
 import { auth } from '../int/Auth';
 import Main from './Main';
-
-
 import styles from './Home.css';
-
-//TODO https://stackoverflow.com/questions/40318054/exporting-sqlite3-db-file-from-inside-electron-app-is-this-possible
-
-
-const ROOT_ROUTE = '/Main';
-
 
 export default class Home extends Component {
   constructor(props) {
@@ -23,7 +14,8 @@ export default class Home extends Component {
       user: '',
       pass: '',
       authMsg: '',
-      authenticated: false
+      authenticated: false,
+      mKey: 1
     };
   }
 
@@ -36,7 +28,6 @@ export default class Home extends Component {
         authenticated: status === 'LOGGED-IN'
       });
     }
-
   }
 
   render() {
@@ -48,11 +39,12 @@ export default class Home extends Component {
   }
 
   renderLoginPage() {
-
+    const { user, pass } = this.state;
+    const disabled = !(user && pass);
     return (
       <div className={`${styles.container} login`} data-tid="container">
         <h2>Lalitha Products</h2>
-          <Form>
+          <Form as="div">
             <Form.Field>
               <label>USERNAME</label>
               <input placeholder="USERNAME" onChange={this.onChangeValue.bind(this, 'user')} />
@@ -63,17 +55,17 @@ export default class Home extends Component {
             </Form.Field>
             <Button type="submit" color='twitter'
               content='LOGIN'
+              disabled={disabled}
               onClick={this.authenticateUser.bind(this)}
               />
             { this.state.authMsg ? <Message color='red'>{ this.state.authMsg }</Message> : null }
           </Form>
       </div>
     );
-
   }
 
   renderMainPage() {
-    const mKey = this.state.mKey || 1;
+    const mKey = this.state.mKey;
     return (
       <Main onClear={this.forceRefresh.bind(this)} key={mKey} />
     );
@@ -94,58 +86,43 @@ export default class Home extends Component {
 
   authenticateUser() {
     const { user, pass } = this.state;
-    const { status, data, error } = Storage.get('session');
-    if (status) {
-      if(data.user === user && data.status === 'LOGGED-IN') {
-        console.log(`USER ${user} is already logged in`);
+    auth(user, pass)
+    .then((row) => {
+      if (!row.length) {
         this.setState({
-          authenticated: true
+          authMsg: 'USERNAME/PASSWORD does not exist'
         });
+      } else {
+        const { name: dbName, pass: dbPass } = row[0];
+        console.log('ROW from db ', JSON.stringify(row[0], null, 2));
 
-      }
-    } else {
-      auth(user, pass)
-      .then((row) => {
-        console.log('ROW from db ', JSON.stringify(row, null, 2));
-        if (!row.length) {
-          this.setState({
-            authMsg: 'USERNAME/PASSWORD does not exist'
-          });
-        } else {
-          const { name: dbName, pass: dbPass } = row[0];
-          console.log('ROW from db ', JSON.stringify(row[0], null, 2));
-
-          if (dbName === user) {
-            if (dbPass === pass) {
-              const result = Storage.set('session', {
-                user,
-                status: 'LOGGED-IN'
-              });
-              this.setState({
-                authenticated: true
-              });
-            } else {
-              Storage.clear();
-              this.setState({
-                authMsg: 'Incorrect Password ❌'
-              });
-            }
-          } else {
-            response.msg = 'USERNAME doesn\'t exist ❗️';
-            Storage.clear();
+        if (dbName === user) {
+          if (dbPass === pass) {
+            const result = Storage.set('session', {
+              user,
+              status: 'LOGGED-IN'
+            });
             this.setState({
-              authMsg: 'USERNAME doesn\'t exist ❗️'
+              authenticated: true
+            });
+          } else {
+            this.setState({
+              authMsg: 'Incorrect Password ❌'
             });
           }
+        } else {
+          response.msg = 'USERNAME doesn\'t exist ❗️';
+          this.setState({
+            authMsg: 'USERNAME doesn\'t exist ❗️'
+          });
         }
-      })
-      .catch((err) => {
-        Storage.clear();
-        this.setState({
-          authMsg: 'Unable to authenticate User❗️'
-        });
+      }
+    })
+    .catch((err) => {
+      this.setState({
+        authMsg: 'Unable to authenticate User❗️'
       });
-    }
+    });
   }
 
   onChangeValue(paramName, e) {

@@ -43,12 +43,12 @@ a:hover {
   border-bottom: solid #e67e22 !important;
 }
 
-form label {
+.login div label {
   text-align: left;
   color: #2980b9 !important;
 }
 
-form .disabled > label {
+.login div .disabled > label {
   text-align: left;
   color: #2980b9 !important;
   opacity: 1 !important;
@@ -63,12 +63,12 @@ form .disabled > label {
   font-size: 24px;
 }
 
-.login form {
+.login div {
   width: 350px !important;
   margin: auto;
 }
 
-.login form input {
+.login div input {
   font-size: 32px !important;
   height: 32px;
   color: #2980b9 !important;
@@ -303,4 +303,8 @@ a.ui.massive.label {
 
 .ui.fluid.attached.button {
     text-align: center;
+}
+
+button.ui.button.hide {
+  display: none;
 }
