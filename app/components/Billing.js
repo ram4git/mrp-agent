@@ -278,15 +278,16 @@ class Billing extends Component {
   }
 
   addActivityRow() {
-    const { activityRows } = this.state;
-    activityRows.push({
+    const newActivityRows = this.state.activityRows.splice(0);
+    newActivityRows.push({
       wsno: '',
       lorryNo: '',
       jattu: '',
       weightInTons: 0
     });
+
     this.setState({
-      activityRows
+      activityRows: newActivityRows
     });
   }
 

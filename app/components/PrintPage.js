@@ -77,7 +77,7 @@ export default class PrintPage extends Component {
         statItems = [
           { label: 'Total Tons', value: this.state.data.totalWeightInTons.toString() },
           { label: 'Charge per Ton', value: this.state.data.chargePerTon.toString() },
-          { label: 'Total Charge', value: this.state.data.balanceAmount.toString() }
+          { label: 'Total Charge', value: this.state.data.totalAmount.toString() }
         ];
       } else {
         statItems = [
