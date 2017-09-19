@@ -1,7 +1,7 @@
 const path = require('path')
 const sqlite3 = require('sqlite3').verbose();
 const { app } = require('electron').remote;
-const dbPath = path.resolve(app.getPath('userData'), 'masters.db');
+const dbPath = path.resolve(app.getPath('userData'), 'dieseldata.db');
 //C:\Users\IEUser\AppData\Roaming\mrp-waybridge-billing
 const db = new sqlite3.Database(dbPath);
 
@@ -182,7 +182,7 @@ export const chargesMap = {
       local: 35,
       outside: 40,
       extra: {
-        local: 300,
+        local: 0,
         outside: 300
       }
     },
@@ -198,7 +198,7 @@ export const chargesMap = {
       local: 35,
       outside: 40,
       extra: {
-        local: 300,
+        local: 0,
         outside: 300
       }
     }

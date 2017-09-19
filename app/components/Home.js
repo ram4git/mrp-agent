@@ -43,7 +43,7 @@ export default class Home extends Component {
     const disabled = !(user && pass);
     return (
       <div className={`${styles.container} login`} data-tid="container">
-        <h2>Lalitha Products</h2>
+        <h2>Lalitha ⛽️ Billing</h2>
           <Form as="div">
             <Form.Field>
               <label>USERNAME</label>

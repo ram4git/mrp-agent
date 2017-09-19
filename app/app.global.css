@@ -5,9 +5,9 @@
 body {
   position: relative;
   color: white;
-  height: 100vh;
   font-family: Arial, Helvetica, Helvetica Neue, serif;
   overflow-y: auto;
+  height: 90%;
 }
 
 h2 {
@@ -39,8 +39,8 @@ a:hover {
 }
 
 .ui.menu .active.item {
-  background-color: #3498db !important;
-  border-bottom: solid #e67e22 !important;
+  background-color: #16a085 !important;
+  border-bottom: solid #2980b9 !important;
 }
 
 .login div label {
@@ -98,11 +98,12 @@ a:hover {
   text-color: #2980b9;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding: 10px 10px !important;
+  border-radius: 4px;
 }
 
 .master .header.head {
   font-size: 20px;
-  color: #c0392b !important;
+  color: #16a085 !important;
   text-transform: uppercase;
   padding-top: 10px !important;
 }
@@ -127,6 +128,7 @@ a:hover {
 
 h1.ui.header {
     text-align: center;
+    color: #16a085;
 }
 
 .billing .summary {
@@ -154,10 +156,6 @@ h1.ui.header {
     bottom: 0 !important;
     position: fixed !important;
     width: 99%;
-}
-
-.billing form.ui.form {
-    min-height: 600px;
 }
 
 .page {
@@ -307,4 +305,20 @@ a.ui.massive.label {
 
 button.ui.button.hide {
   display: none;
+}
+
+
+.segment .userCreate {
+  margin: auto;
+  width: 800px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+}
+
+.segment .userCreate input[type="text"] {
+  font-size: 16px;
+  color: #2980b9 !important;
+}
+
+.main .segment:not(.inverted) {
+  padding-bottom: 80px !important;
 }

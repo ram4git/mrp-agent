@@ -1,13 +1,13 @@
 {
-  "name": "mrp-waybridge-billing",
-  "productName": "mrp-waybridge-billing",
+  "name": "lalitha-diesel-billing",
+  "productName": "lalitha-diesel-billing",
   "version": "1.0.0",
-  "description": "Desktop Application to print waybridge bills",
+  "description": "Desktop Application to print diesel bills",
   "main": "./main.prod.js",
   "author": {
-    "name": "C. T. Lin",
-    "email": "chentsulin@gmail.com",
-    "url": "https://github.com/chentsulin"
+    "name": "Ram",
+    "email": "irraju@gmail.com",
+    "url": ""
   },
   "scripts": {
     "postinstall": "npm rebuild --runtime=electron --target=1.6.6 --disturl=https://atom.io/download/atom-shell --build-from-source",

@@ -32,7 +32,7 @@ class Main extends Component {
   renderSegment() {
     const Component = this.componentMap[this.state.activeItem];
     return (
-      <Segment color='orange' secondary>
+      <Segment color='green' secondary>
         <Component {...this.props}/>
       </Segment>
     );
