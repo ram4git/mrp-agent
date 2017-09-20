@@ -102,9 +102,9 @@ class Billing extends Component {
     }
 
     return {
-      totalAmount,
+      totalAmount: totalAmount.toFixed(2),
       jattuAmount,
-      balanceAmount
+      balanceAmount: balanceAmount.toFixed(2)
     }
   }
 

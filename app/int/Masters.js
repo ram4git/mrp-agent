@@ -182,7 +182,7 @@ export const chargesMap = {
       local: 35,
       outside: 40,
       extra: {
-        local: 300,
+        local: 0,
         outside: 300
       }
     },
@@ -198,7 +198,7 @@ export const chargesMap = {
       local: 35,
       outside: 40,
       extra: {
-        local: 300,
+        local: 0,
         outside: 300
       }
     }
