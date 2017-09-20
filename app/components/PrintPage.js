@@ -86,9 +86,9 @@ export default class PrintPage extends Component {
           { label: this.state.action === 'loading' ? 'rusum' : 'Other Charges', value: this.state.data.otherCharges.toString() }
         ];
         amountItems = [
-          { label: 'Total Amount', value: this.state.data.totalAmount.toString() },
+          { label: 'Total Amount', value: this.state.data.totalAmount.toFixed(2).toString() },
           { label: 'Jattu Amount', value: this.state.data.jattuAmount.toString() },
-          { label: 'Remaining', value: this.state.data.balanceAmount.toString() }
+          { label: 'Remaining', value: this.state.data.balanceAmount.toFixed(2).toString() }
         ];
       }
     }
@@ -123,8 +123,8 @@ export default class PrintPage extends Component {
           </tr>
         </table>
         <div className="summary">
-          <Statistic.Group items={statItems} color='black' widths='three'/>
-          <Statistic.Group items={amountItems} color='black' widths='three' />
+          <Statistic.Group items={statItems} color='black' widths='three' size='mini'/>
+          <Statistic.Group items={amountItems} color='black' widths='three' size='mini'/>
         </div>
       </div>
     );
