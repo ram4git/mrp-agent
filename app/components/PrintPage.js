@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Storage from 'electron-json-storage-sync';
 import { Statistic } from 'semantic-ui-react';
+import moment from 'moment';
+import { remote } from 'electron';
 
 import { getBill } from '../int/Masters';
 
@@ -9,7 +11,7 @@ export default class PrintPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      mileage: 10.23
     };
   }
 
@@ -30,17 +32,17 @@ export default class PrintPage extends Component {
   }
 
   render() {
-    const date = new Date();
+    //remote.getCurrentWindow().openDevTools();
     return (
       <div className="page">
         <div className="original copy">
-          { this.renderPageHeader('office') }
-          { this.renderBillDetails('office') }
+          { this.renderPageHeader('logistics') }
+          { this.renderBillDetails() }
           { this.renderFooter() }
         </div>
         <div className="security copy">
-          { this.renderPageHeader('security') }
-          { this.renderBillDetails('security') }
+          { this.renderPageHeader('stores') }
+          { this.renderBillDetails() }
           { this.renderFooter() }
         </div>
       </div>
@@ -58,74 +60,48 @@ export default class PrintPage extends Component {
 
   renderPageHeader(copyType) {
     const date = new Date();
+    const dateStr = moment().format('DD/MMM/YYYY - h:mm:ssa')
 
     return (
       <div className="printPageHeader">
         <h5>Sree Lalitha Industries Pvt Ltd.</h5>
         <h5>{ `BILL - #${this.state.data ? this.state.data.sno : ''}` }</h5>
-        <h5>{ `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`}</h5>
+        <h5>{ dateStr }</h5>
         <p>{ `${copyType.toUpperCase()} COPY` }</p>
         <hr />
       </div>
     );
   }
 
-  renderBillDetails(billType) {
-    let statItems = [], amountItems = [];
-    if (this.state.data) {
-      if (billType === 'security') {
-        statItems = [
-          { label: 'Total Tons', value: this.state.data.totalWeightInTons.toString() },
-          { label: 'Charge per Ton', value: this.state.data.chargePerTon.toString() },
-          { label: 'Total Charge', value: this.state.data.totalAmount.toString() }
-        ];
-      } else {
-        statItems = [
-          { label: 'Total Tons', value: this.state.data.totalWeightInTons.toString() },
-          { label: 'Charge per Ton', value: this.state.data.chargePerTon.toString() },
-          { label: this.state.action === 'loading' ? 'rusum' : 'Other Charges', value: this.state.data.otherCharges.toString() }
-        ];
-        amountItems = [
-          { label: 'Total Amount', value: this.state.data.totalAmount.toString() },
-          { label: 'Jattu Amount', value: this.state.data.jattuAmount.toString() },
-          { label: 'Remaining', value: this.state.data.balanceAmount.toString() }
-        ];
-      }
-    }
+  renderBillDetails() {
 
     if (!this.state.data) {
       return
     }
 
-    const wayBillNos = JSON.parse(this.state.data.activityRows).map((item) => item.wsno).join(',');
-
     return (
       <div className="orderHeader">
-
         <table>
           <tr>
-            <td className="key">PRODUCT<span>:</span></td>
-            <td className="value">{this.state.data.product.toUpperCase()}</td>
-            <td className="key">ACTION<span>:</span></td>
-            <td className="value">{this.state.data.action.toUpperCase()}</td>
+            <td className="key">VEHICLE NO<span>:</span></td>
+            <td className="value">{this.state.data.vehicleNo.toUpperCase()}</td>
+            <td className="key">VEHICLE TYPE<span>:</span></td>
+            <td className="value">{this.state.data.vehicleType.toUpperCase()}</td>
           </tr>
           <tr>
-            <td className="key">VEHICLE<span>:</span></td>
-            <td className="value">{this.state.data.lorryType.toUpperCase()}</td>
-            <td className="key">REGION<span>:</span></td>
-            <td className="value">{this.state.data.region.toUpperCase()}</td>
+            <td className="key">DIESEL FILLED<span>:</span></td>
+            <td className="value">{`${this.state.data.dieselIssued.toFixed(2)} Lts`}</td>
+            <td className="key">ODOMETER READING<span>:</span></td>
+            <td className="value">{`${this.state.data.odometerReading.toFixed(2)} KMs`}</td>
           </tr>
           <tr>
-            <td className="key">VEHICLE#<span>:</span></td>
-            <td className="value">{this.state.data.lorryNo.toUpperCase()}</td>
-            <td className="key">WSNO<span>:</span></td>
-            <td className="value">{wayBillNos.toUpperCase()}</td>
+            <td className="key">MILEAGE<span>:</span></td>
+            <td className="value">{`${this.state.mileage.toFixed(2)} KM/Ltr`}</td>
+            <td className="key">DRIVER<span>:</span></td>
+            <td className="value">{this.state.data.driverName}</td>
           </tr>
         </table>
-        <div className="summary">
-          <Statistic.Group items={statItems} color='black' widths='three'/>
-          <Statistic.Group items={amountItems} color='black' widths='three' />
-        </div>
+        <img src={this.state.data.screenshot} height={250}/>
       </div>
     );
   }

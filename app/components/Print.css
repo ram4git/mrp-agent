@@ -15,9 +15,8 @@ html { background-color: #F8F8F8; }
 }
 .page {
     width: 21cm;
-    min-height: 29.7cm;
+    min-height: 27.7cm;
     padding: 2cm;
-    margin: 1cm auto;
     border: 1px #D3D3D3 solid;
     border-radius: 5px;
     background: white;

@@ -1,8 +1,8 @@
 {
-  "name": "lalitha-waybridge-billing",
-  "productName": "LalithaWaybridge",
+  "name": "lalitha-diesel-billing",
+  "productName": "LalithaDieselBilling",
   "version": "0.12.0",
-  "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
+  "description": "Lalitha Industries Diesel Billing App",
   "scripts": {
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings ./test/runTests.js",
     "test-all": "npm run lint && npm run flow && npm run test && npm run build && npm run test-e2e",
@@ -31,8 +31,8 @@
   },
   "browserslist": "electron 1.6",
   "build": {
-    "productName": "WaybridgeBilling",
-    "appId": "org.mrps.WaybridgeBilling",
+    "productName": "LalithaDieselBilling",
+    "appId": "org.mrps.LalithaDieselBilling",
     "files": [
       "dist/",
       "node_modules/",
@@ -76,9 +76,9 @@
     "url": "git+https://github.com/chentsulin/electron-react-boilerplate.git"
   },
   "author": {
-    "name": "C. T. Lin",
-    "email": "chentsulin@gmail.com",
-    "url": "https://github.com/chentsulin"
+    "name": "IRRAJU",
+    "email": "irraju@gmail.com",
+    "url": "https://github.com/ram4git"
   },
   "license": "MIT",
   "bugs": {
@@ -204,15 +204,18 @@
     "react-datepicker": "^0.53.0",
     "react-dom": "^15.5.4",
     "react-hot-loader": "3.0.0-beta.6",
+    "react-live-clock": "^2.0.1",
     "react-redux": "^5.0.5",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "react-router-redux": "^5.0.0-alpha.6",
+    "react-webcam": "^0.2.0",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "semantic-ui-css": "^2.2.10",
     "semantic-ui-react": "^0.68.4",
-    "source-map-support": "^0.4.15"
+    "source-map-support": "^0.4.15",
+    "webcamjs": "^1.0.22"
   },
   "devEngines": {
     "node": ">=6.x",

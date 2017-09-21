@@ -6,27 +6,28 @@ const dbPath = path.resolve(app.getPath('userData'), 'dieseldata.db');
 const db = new sqlite3.Database(dbPath);
 
 export function addBill(bill) {
+  console.log("DB PATH=" + dbPath);
   let valuesArray = [];
   valuesArray.push(bill.sno);// #2 sno
   valuesArray.push(bill.date);// #1 date
-  valuesArray.push(bill.action);// #2 action
-  valuesArray.push(bill.product);// #3 product
-  valuesArray.push(bill.region);// #4 region
-  valuesArray.push(bill.lorryType);// #5 lorryType
-  valuesArray.push(bill.totalWeightInTons);// #6 totalWeightInTons
-  valuesArray.push(bill.activityRows);// #7 activityRows
-  valuesArray.push(bill.totalAmount);// #8  totalAmout
-  valuesArray.push(bill.jattuAmount); //#9 jattuAmount
-  valuesArray.push(bill.balanceAmount); //#10 balanceAmount
-  valuesArray.push(bill.chargePerTon); //#11 chargePerTon
-  valuesArray.push(bill.otherCharges); //#12 otherCharges
-  valuesArray.push(bill.lorryNo); //#13 lorryNo
+  valuesArray.push(bill.vehicleNo);// #2 action
+  valuesArray.push(bill.vehicleType);// #3 product
+  valuesArray.push(bill.driverName);// #4 region
+  valuesArray.push(bill.meterReading);// #5 lorryType
+  valuesArray.push(bill.remainingFuel);// #6 totalWeightInTons
+  valuesArray.push(bill.dieselIssued);// #7 activityRows
+  valuesArray.push(bill.odometerReading);// #8  totalAmout
+  valuesArray.push(bill.remarks); //#9 jattuAmount
+  valuesArray.push(bill.areKeysIssued); //#10 balanceAmount
+  valuesArray.push(bill.billEnteredBy); //#11 chargePerTon
+  valuesArray.push(bill.screenshot); //#11 chargePerTon
+
 
   return new Promise((resolve, reject) => {
-    const stmt = 'INSERT INTO BILLS (sno, date, action, product, region,' +
-    ' lorryType, totalWeightInTons, activityRows, totalAmount, jattuAmount,' +
-    ' balanceAmount, chargePerTon, otherCharges, lorryNo) ' +
-    'VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+    const stmt = 'INSERT INTO BILLS (sno, date, vehicleNo, vehicleType, driverName,' +
+    ' meterReading, remainingFuel, dieselIssued, odometerReading, remarks,' +
+    ' areKeysIssued, billEnteredBy, screenshot) ' +
+    'VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)';
     db.run(stmt, valuesArray, (err) => {
       if (!err) {
         resolve({ success: true, id: bill.sno });

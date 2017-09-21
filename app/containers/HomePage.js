@@ -8,8 +8,9 @@ export default class HomePage extends Component {
 
   render() {
     const { print } = queryString.parse(this.props.location.search);
+    console.log('PRINT-ID', print);
+
     if(print) {
-      console.log('PRINT-ID', print);
       return (
         <PrintPage billNo={print} />
       );

@@ -53,7 +53,7 @@ export default class Home extends Component {
               <label>PASSWORD</label>
               <input placeholder="PASSWORD" type="password" onChange={this.onChangeValue.bind(this, 'pass')} />
             </Form.Field>
-            <Button type="submit" color='twitter'
+            <Button type="submit" color='teal'
               content='LOGIN'
               disabled={disabled}
               onClick={this.authenticateUser.bind(this)}
