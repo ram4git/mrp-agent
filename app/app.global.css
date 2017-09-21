@@ -118,6 +118,7 @@ a:hover {
 
 .content .header{
   color: #2980b9 !important;
+  text-transform: uppercase;
 }
 
 .modal span.head {
@@ -307,4 +308,8 @@ a.ui.massive.label {
 
 button.ui.button.hide {
   display: none;
+}
+
+.billing .fields .text {
+    text-transform: uppercase;
 }

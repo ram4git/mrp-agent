@@ -147,6 +147,7 @@ export function addUser(name, pass) {
 
 
 export const lorryToRusumMap = {
+  tractor: 150,
   lorry_6_tyres: 150,
   lorry_10_tyres: 200,
   lorry_12_tyres: 250,
@@ -155,6 +156,7 @@ export const lorryToRusumMap = {
 };
 
 export const lorry2JattuMap = {
+  tractor: 250,
   lorry_6_tyres: 250,
   lorry_10_tyres: 450,
   lorry_12_tyres: 550,
@@ -176,6 +178,10 @@ export const chargesMap = {
       local: 35,
       outside: 35
     },
+    rejected: {
+      local: 35,
+      outside: 35
+    }
   },
   unloading: {
     rice: {
@@ -195,6 +201,14 @@ export const chargesMap = {
       }
     },
     broken: {
+      local: 35,
+      outside: 40,
+      extra: {
+        local: 0,
+        outside: 300
+      }
+    },
+    rejected: {
       local: 35,
       outside: 40,
       extra: {
