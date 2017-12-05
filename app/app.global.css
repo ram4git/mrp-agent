@@ -265,11 +265,21 @@ h1.ui.header {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-top: 40px !important;
+}
+
+
+.summary .ui.three.statistics {
+  margin: 0 0 !important;
 }
 
 .ui.statistics>.statistic {
   margin: auto !important;
+  z-index: 100;
+  text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
+
+.original img {
+  margin-top: -20px !important;
 }
 
 .ui.statistic {
@@ -312,4 +322,32 @@ button.ui.button.hide {
 
 .billing .fields .text {
     text-transform: uppercase;
+}
+
+.cameraContainer {
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.cameraContainer button.camera {
+  font-size: 64px;
+}
+
+.segment .userCreate {
+  margin: auto;
+  width: 800px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+}
+
+.segment .userCreate input[type="text"] {
+  font-size: 16px;
+  color: #2980b9 !important;
+}
+
+.main .segment:not(.inverted) {
+  padding-bottom: 10px !important;
 }

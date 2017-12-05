@@ -21,12 +21,14 @@ export function addBill(bill) {
   valuesArray.push(bill.chargePerTon); //#11 chargePerTon
   valuesArray.push(bill.otherCharges); //#12 otherCharges
   valuesArray.push(bill.lorryNo); //#13 lorryNo
+  valuesArray.push(bill.screenshot); //#13 lorryNo
+
 
   return new Promise((resolve, reject) => {
     const stmt = 'INSERT INTO BILLS (sno, date, action, product, region,' +
     ' lorryType, totalWeightInTons, activityRows, totalAmount, jattuAmount,' +
-    ' balanceAmount, chargePerTon, otherCharges, lorryNo) ' +
-    'VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+    ' balanceAmount, chargePerTon, otherCharges, lorryNo, screenshot) ' +
+    'VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
     db.run(stmt, valuesArray, (err) => {
       if (!err) {
         resolve({ success: true, id: bill.sno });
@@ -135,6 +137,21 @@ export function addUser(name, pass) {
     db.serialize(() => {
       const stmt = 'INSERT INTO USERS (name, pass) VALUES (?,?)';
       db.run(stmt, [name, pass], (err) => {
+        if (!err) {
+          resolve({ success: true });
+        } else {
+          reject(err);
+        }
+      });
+    });
+  });
+}
+
+export function addScreenshotColumn() {
+  return new Promise((resolve, reject) => {
+    db.serialize(() => {
+      const stmt = 'ALTER TABLE BILLS ADD COLUMN screenshot BLOB';
+      db.run(stmt, (err) => {
         if (!err) {
           resolve({ success: true });
         } else {

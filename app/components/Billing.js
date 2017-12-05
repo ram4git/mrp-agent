@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import electron, { remote } from 'electron';
+import Webcam from 'react-webcam';
 import { Form, Step, Button, Statistic, Message } from 'semantic-ui-react'
 import { getMasters, chargesMap, lorryToRusumMap, lorry2JattuMap, addBill } from '../int/Masters';
-import electron, { remote } from 'electron';
+
+
 
 const app = remote.app;
 const appDir = app.getAppPath();
@@ -55,7 +58,7 @@ class Billing extends Component {
 
     return (
       <div className="billing">
-        <Form>
+        <Form as='div'>
           <Form.Group className="selectors">
             <Form.Select label='Action' options={ this.getMasters('actions') } placeholder='Loading or Unloading?' width={4} required  onChange={ this.onChangeValue.bind(this, 'action')} error={!this.state.action} />
             <Form.Select label='Product Type' options={ this.getMasters('products') } placeholder='Rice or Paddy?' width={4} required onChange={ this.onChangeValue.bind(this, 'product')} error={!this.state.product} />
@@ -67,6 +70,7 @@ class Billing extends Component {
           </div>
           { this.renderSummary() }
           { this.renderFinancials() }
+          { this.renderCamera() }
           { this.renderFooter() }
         </Form>
       </div>
@@ -181,7 +185,7 @@ class Billing extends Component {
   }
 
   saveBillToDB() {
-    const { action, product, region, lorryType, activityRows } = this.state;
+    const { action, product, region, lorryType, activityRows, screenshot } = this.state;
     const activityRowsJson = JSON.stringify(activityRows);
     const { totalAmount, jattuAmount, balanceAmount } = this.getCharges();
     const { totalWeightInTons, chargePerTon, otherCharges } = this.getSummaryData()
@@ -203,7 +207,8 @@ class Billing extends Component {
       balanceAmount,
       chargePerTon,
       otherCharges,
-      lorryNo
+      lorryNo,
+      screenshot
     };
 
     addBill(payLoad)
@@ -220,7 +225,7 @@ class Billing extends Component {
             });
           win.loadURL(`file://${appDir}/app.html?print=${resp.id}`);
           win.webContents.on('did-finish-load', () => {
-            //win.openDevTools();
+            win.openDevTools();
             if (!win) {
               throw new Error('"Print Window" is not defined');
             }
@@ -317,6 +322,33 @@ class Billing extends Component {
   clearAllSettings() {
     this.props.onClear();
   }
+
+  renderCamera() {
+    return (
+      <div className="cameraContainer">
+        <Webcam
+          audio={false}
+          height={300}
+          ref={this.setRef}
+          screenshotFormat="image/jpeg"
+          width={400}
+        />
+      <button onClick={this.capture} className="camera" width={2}><span>📷</span></button>
+        {this.state.screenshot ? <img src={this.state.screenshot} height={300}/> : null}
+      </div>
+    );
+  }
+
+  setRef = (webcam) => {
+    this.webcam = webcam;
+  }
+
+  capture = () => {
+    const screenshot = this.webcam.getScreenshot();
+    this.setState({
+      screenshot
+    });
+  };
 
 }
 

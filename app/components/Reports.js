@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { remote } from 'electron';
 import { getBills, getBillsForShift } from '../int/Masters';
-import { Loader, Header, Message, Table, Icon, Dropdown, Button, Label } from 'semantic-ui-react';
+import { Loader, Header, Message, Table, Popup, Icon, Dropdown, Button, Label } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
@@ -139,13 +139,20 @@ class Reports extends Component {
           <Table.Body>
             { data.map((row) => {
               const { sno, date, action, product, region, lorryType, lorryNo } = row;
-              const { totalAmount, jattuAmount, balanceAmount } = row;
+              const { totalAmount, jattuAmount, balanceAmount, screenshot } = row;
               const { totalWeightInTons, chargePerTon, otherCharges } = row;
               const d = new Date(date);
               const dateString = d.toLocaleString();
               return (
                 <Table.Row key={sno} positive={region === 'local'} negative={region !== 'local'}>
-                  <Table.Cell>{sno}</Table.Cell>
+                  <Table.Cell>
+                    <Popup
+                      trigger={<Button icon>{sno}</Button>}
+                      on='click'
+                      hideOnScroll>
+                      <img src={ screenshot } />
+                    </Popup>
+                  </Table.Cell>
                   <Table.Cell>{dateString}</Table.Cell>
                   <Table.Cell><Icon name={`long arrow ${action === 'loading' ? 'up' : 'down'}`} />{`${product} ${action}`}</Table.Cell>
                   <Table.Cell><Icon name={`${region === 'local' ? 'home' : 'plane'}`} />{`${lorryType} ${lorryNo}`}</Table.Cell>

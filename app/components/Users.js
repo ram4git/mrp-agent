@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Form, Message } from 'semantic-ui-react';
+import { Header, Form, Message, Segment, Button } from 'semantic-ui-react';
 import Storage from 'electron-json-storage-sync';
 
 import { addUser } from '../int/Masters';
@@ -64,13 +64,15 @@ export default class Users extends Component {
     return (
       <div>
         { this.renderMsg() }
-        <Form className="userManagement">
-          <Form.Group>
-            <Form.Input placeholder='User Name' name='user' value={user} onChange={this.handleChange} />
-            <Form.Input placeholder='Password' name='pass' value={pass} onChange={this.handleChange} />
-            <Form.Button content='Create' onClick={ this.handleSubmit.bind(this) } />
-          </Form.Group>
-        </Form>
+        <Segment inverted color='teal' className="userCreate">
+          <Form inverted className="userManagement" as="div">
+            <Form.Group widths='equal' as="div">
+              <Form.Input label='New User Name' placeholder='User Name' name='user' value={user} onChange={this.handleChange} />
+              <Form.Input label='Password' placeholder='Password' name='pass' value={pass} onChange={this.handleChange} />
+            </Form.Group>
+            <Button primary content='Create New User' onClick={ this.handleSubmit.bind(this) } />
+          </Form>
+        </Segment>
       </div>
     );
   }
